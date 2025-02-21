@@ -1,0 +1,15 @@
+{
+    "projectName": "LivEx",
+    "languages": [{
+        "id": "livex",
+        "grammar": "src/language/livex.langium",
+        "fileExtensions": [".lvx"],
+        "textMate": {
+            "out": "syntaxes/livex.tmLanguage.json"
+        },
+        "monarch": {
+            "out": "src/syntaxes/livex.monarch.ts"
+        }
+    }],
+    "out": "src/language/generated"
+}
