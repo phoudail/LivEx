@@ -26,7 +26,7 @@ export function execRequestAction(code: string): Object {
     const model = services.parser.LangiumParser.parse<DefinitionList>(code).value;
     // const model = await extractAstNode<Example>(fileName, services);
     const execRequest = generateExecRequest(model);
-    console.log(chalk.green(`Execution request generated successfully: ${JSON.stringify(execRequest)}`));
+    // console.log(chalk.green(`Execution request generated successfully: ${JSON.stringify(execRequest)}`));
     return execRequest;
 };
 
