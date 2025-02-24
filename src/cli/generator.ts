@@ -1,4 +1,4 @@
-import type { DefinitionList, Example } from '../language/generated/ast.js';
+import { DefinitionList, isExample, isProbe } from '../language/generated/ast.js';
 import { expandToNode, joinToNode, toString } from 'langium/generate';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -26,12 +26,22 @@ export function generateExample(): string {
 }
 
 export function generateExecRequest(defList: DefinitionList): Object {
-    const ex = defList.defs[0] as Example;
-
-    const funcName = ex.target.name;
-    const strArgs = ex.scenario.args.map(arg => arg.value);
-    return {
-        "method": funcName,
-        "args": strArgs,
-    };
+    const result: any = {};
+    for (const def of defList.defs) {
+        if (isExample(def)) {
+            const ex = {
+                "method": def.target.name,
+                "args": def.scenario.args.map(arg => arg.value),
+                "probes": []
+            };
+            result[def.name] = ex;
+        } else if (isProbe(def)) {
+            const probe = {
+                "line": def.line,
+                "expr": def.expr,
+            };
+            result[def.example_name.$refText]["probes"].push(probe);
+        }
+    }
+    return result;
 }

@@ -7,7 +7,7 @@ Definition:
     Example | Scenario | State | Probe;
 
 Example:
-    name=ID? target=Target  scenario=Scenario state=State? probes+=Probe*;
+    (name=ID ':') target=Target  scenario=Scenario state=State?;
 
 Target:
     name=ID;
@@ -22,7 +22,7 @@ State:
     'state' name=ID;
 
 Probe:
-    'probe' name=ID;
+    '[' line=INT ']' (example_name=[Example:ID] ':') 'probe''(' expr=ID ')' ;
 
 hidden terminal WS: /\s+/;
 terminal ID: /[_a-zA-Z][\w_]*/;
