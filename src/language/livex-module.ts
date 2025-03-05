@@ -2,6 +2,7 @@ import { type Module, inject } from 'langium';
 import { createDefaultModule, createDefaultSharedModule, type DefaultSharedModuleContext, type LangiumServices, type LangiumSharedServices, type PartialLangiumServices } from 'langium/lsp';
 import { LivExGeneratedModule, LivExGeneratedSharedModule } from './generated/module.js';
 import { LivExValidator, registerValidationChecks } from './livex-validator.js';
+import { LivExValueConverter } from './livex-value-converter.js';
 
 /**
  * Declaration of custom services - add your own service classes here.
@@ -26,6 +27,9 @@ export type LivExServices = LangiumServices & LivExAddedServices
 export const LivExModule: Module<LivExServices, PartialLangiumServices & LivExAddedServices> = {
     validation: {
         LivExValidator: () => new LivExValidator()
+    },
+    parser: {
+        ValueConverter: () => new LivExValueConverter()
     }
 };
 
