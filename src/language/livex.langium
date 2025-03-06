@@ -21,7 +21,7 @@ Arg:
 State:
     'state' name=ID;
 
-Probe:
+Probe returns Probe:
     '[' line=INT ']' (example_name=[Example:ID] ':') 'probe' expr=ID ('if' condition=ANY_EXPR)? ;
 
 
@@ -33,3 +33,11 @@ terminal ANY_EXPR: /£[\s\S]*?£/;
 
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
+
+
+interface Probe {
+    line: number;
+    example_name: @Example;
+    expr: string;
+    condition: string = "True";
+}

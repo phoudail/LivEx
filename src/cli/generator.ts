@@ -39,6 +39,7 @@ export function generateExecRequest(defList: DefinitionList): Object {
             const probe = {
                 "line": def.line,
                 "expr": def.expr,
+                "condition": def.condition
             };
             result[def.example_name.$refText]["probes"].push(probe);
         }
