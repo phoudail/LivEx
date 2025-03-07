@@ -1,24 +1,26 @@
 grammar LivEx
 
+import "./livex-types"
+
 entry DefinitionList:
     (defs+=Definition)*;
 
 Definition:
     (Example | Scenario | State | Probe);
 
-Example:
-    name=ID ':' target=Target  scenario=Scenario state=State?;
+Example returns Example:
+    name=ID ':' target=Target  scenario=Scenario (state=State)?;
 
-Target:
+Target returns Target:
     name=ID;
 
-Scenario:
+Scenario returns Scenario:
     '(' ((args+=Arg ',')* args+=Arg)? ')';
 
-Arg:
+Arg returns Arg:
     value=(INT | STRING);
 
-State:
+State returns State:
     'state' name=ID;
 
 Probe returns Probe:
@@ -33,11 +35,3 @@ terminal ANY_EXPR: /£[\s\S]*?£/;
 
 hidden terminal ML_COMMENT: /\/\*[\s\S]*?\*\//;
 hidden terminal SL_COMMENT: /\/\/[^\n\r]*/;
-
-
-interface Probe {
-    line: number;
-    example_name: @Example;
-    expr: string;
-    condition: string = "True";
-}
